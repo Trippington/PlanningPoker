@@ -18,46 +18,11 @@
   <div id="root">Scrum Planning Poker App</div>
   <br>
 
-  <label for="username">Name:</label>
-  <div id="assigned_name1" style="display: inline-block;"></div>
-  <input type="text" id="username" name="username" onfocusout="publishNewUser();">
-  <br><br>
-
-  <label for="countRadio">Increment of 1:</label>
-  <input type="radio" id="countRadio" name="cardValue" value="count" checked>
-
-  <label for="fibRadio">Fibonacci:</label>
-  <input type="radio" id="fibRadio" name="cardValue" value="fib">
-
-  <label for="shirtRadio">T-Shirt:</label>
-  <input type="radio" id="shirtRadio" name="cardValue" value="shirt">
-
-  <br><br>
-
-  <label for="numCardsInput">Number of Cards:</label>
-  <select id="numCardsInput">
-    <option value="2">2</option>
-    <option value="3">3</option>
-    <option value="4">4</option>
-    <option value="5">5</option>
-    <option value="6">6</option>
-    <option value="7">7</option>
-    <option value="8">8</option>
-    <option value="9">9</option>
-    <option value="10" selected>10</option>
-    <option value="11">11</option>
-    <option value="12">12</option>
-    <option value="13">13</option>
-    <option value="14">14</option>
-  </select>
-
-  <button id="generateCards" onclick="addCards();">Start session</button>
-
   <div id="cards"></div>
 
   <hr>
-  <button id="showcard" onclick="pushShowCards();">Show Cards</button>
-  <button id="showcard" onclick="pushClearCards();">Clear votes</button>
+  <div id="showcard" onclick="pushShowCards();">Show Cards</div>
+  <div id="showcard" onclick="pushClearCards();">Clear votes</div>
   <br>
   <div id="results"></div>
   <div id="users"></div>

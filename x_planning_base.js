@@ -472,6 +472,53 @@ function checkNewUser(r_message) {
   }
 
 
+  //print ("tabID is " + tabID);
+  logOutput("tabID is: " + tabID);
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  //=======================================================
+  // select and share card with others
+  //=======================================================
+  function select_card(tab_id, card_value){
+    var name;
+      logOutput("output tab_id=" + tab_id + ", card_value is: " + card_value);
+      name=document.getElementById("username").value;
+      publishCardSelected(tab_id, name, card_value);
+
+      const card = document.getElementById("card" + card_value);
+      const cardText = card.innerText;
+      const results = document.getElementById("results");
+      results.innerText = "You selected: " + cardText;
+    
+  }
+
+
 //Define an 'Object' User
 // function User(u_tabID, u_name, u_card_value) {
 //   this.user_tabID = u_tabID;
@@ -481,26 +528,19 @@ function checkNewUser(r_message) {
 
 function showResults() {
   myLogger(17, "======== showResults() =========== ", "showResults()");
-  //user1_name = document.getElementById("assigned_name1").innerHTML;
-  //user2_name = document.getElementById("assigned_name2").innerHTML;
-  //user3_name = document.getElementById("assigned_name3").innerHTML;
-
-  // var str_results = "SHOW RESULTS";
-  // str_results =str_results+ "<br>User 1 - " + user1_name + "'s card is: " + user1_card_selected;
-  // str_results =str_results+ "<br>User 2 - " + user2_name + "'s card is: " + user2_card_selected;
-  // str_results =str_results+ "<br>User 3 - " + user3_name + "'s card is: " + user3_card_selected;
-  // document.getElementById("results").innerHTML = str_results;
-
+  
   //get users
   //iterate over them
   //output each result
   var str_results = "--- SHOW RESULTS ---";
   var user;
+  
   for (let i = 0; i < users.length; i++) {
     myLogger(17, "======== log user on next line =========== ", "showResults()");
     console.log(users[i]);
     user=users[i];
-    str_results =str_results+ "<br>User: " + user.first_name + "'s card is: " + user.card_value;
+    str_results += "<br>User: " + user.first_name + "'s card is: " + user.card_value;
+
     //console.log(user);
   }
   document.getElementById("results").innerHTML = str_results;
@@ -572,40 +612,116 @@ function showUsers() {
 
 
 
-function generateCards(quantity){
-  
+
+
+
+
+
+
+function generateCards(quantity) {
   var cards = document.getElementById("cards");
   const countRadio = document.getElementById("countRadio");
   const fibRadio = document.getElementById("fibRadio");
+  const shirtRadio = document.getElementById("shirtRadio");
 
   countRadio.addEventListener("change", () => {
     updateCards("count");
+    resetFontSize();
   });
   
   fibRadio.addEventListener("change", () => {
     updateCards("fib");
+    resetFontSize();
+  });
+  
+  shirtRadio.addEventListener("change", () => {
+    updateCards("shirt");
+    decreaseFontSize();
   });
 
-  function updateCards(cardType) {
-    for (let i = 0; i < cards.children.length; i++) {
-      const card = cards.children[i];
-      if (cardType === "count") {
-        card.innerText = i;
-      } else if (cardType === "fib") {
-        card.innerText = fibonacci(i + 1);
-      }
+
+  function resetFontSize() {
+    const cardElements = document.querySelectorAll("#cards > div");
+    for (let i = 0; i < cardElements.length; i++) {
+      cardElements[i].style.fontSize = "3rem";
     }
   }
   
+  function decreaseFontSize() {
+    const cardElements = document.querySelectorAll("#cards > div");
+    for (let i = 0; i < cardElements.length; i++) {
+      cardElements[i].style.fontSize = "2.5rem";
+    }
+  }
+  
+  if (cards) {
+    while (cards.firstChild) {
+      cards.removeChild(cards.firstChild);
+    }
+  }
+
+  for (let count = 0; count < quantity; count++) {
+    var newCard = document.createElement("div");
+    newCard.id = "card" + count;
+    newCard.setAttribute('onclick', 'select_card(\'' + tabID + '\',' + count + ');');
+    cards.appendChild(newCard);
+  }
+
+  // Update card values based on selected radio button
+  updateCards(countRadio.checked ? "count" : (fibRadio.checked ? "fib" : "shirt"));
+}
+
+function updateCards(cardType) {
+  for (let i = 0; i < cards.children.length; i++) {
+    const card = cards.children[i];
+    if (cardType === "count") {
+      card.innerText = i === 0 ? 0 : i;
+    } else if (cardType === "fib") {
+      card.innerText = fibonacci(i);
+    } else if (cardType === "shirt") {
+      card.innerText = Tshirt(i);
+    }
+  }
+}
+
   // Function to calculate the fibonacci
   function fibonacci(n) {
-    if (n === 1 || n === 2) {
+    if (n === 0) {
+      return 0;
+    } else if (n === 1 || n === 2) {
       return 1;
     } else {
       return fibonacci(n - 1) + fibonacci(n - 2);
     }
   }
 
+  // Function to calculate Tshirt sizes
+  function Tshirt(n) {
+    if (n === 0) {
+      return "XS";
+    } else if (n === 1) {
+      return "S";
+    } else if (n === 2) {
+      return "M";
+    } else if (n === 3) {
+      return "L";
+    } else if (n === 4) {
+      return "XL";
+    } else if (n === 5) {
+      return "2XL";
+    } else if (n === 6) {
+      return "3XL";
+    } else if (n === 7) {
+      return "4XL";
+    } else if (n === 8) {
+      return "5XL";
+    } else if (n === 9) {
+      return "6XL";
+    } else {
+      return "NA";
+    }
+  }
+  
   
   if (cards) {
     while (cards.firstChild) {
@@ -627,9 +743,11 @@ function generateCards(quantity){
     cards.appendChild(newCard);
   }
   
-  }
+  
   function addCards() {
     const numCardsInput = document.getElementById("numCardsInput");
     const numCards = numCardsInput.value;
     generateCards(numCards);
   }
+
+  

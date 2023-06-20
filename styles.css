@@ -1,4 +1,11 @@
+  body {
+    background-color: lightblue;
+  }
 
+  p, label {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+  }
   #card0, #card1, #card2, #card3, #card4, #card5, #card6, #card7, #card8, #card9, #card10, #card11, #card12, #card13 {
     display: inline-block;
     width: 75px;
@@ -13,21 +20,11 @@
     transition: all 0.1s ease-in-out;
     font-size: 3rem;
   }
-
-
-  #showcard, #clearvotes {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 5px 15px;
-    border: 1px solid black;
-    cursor: pointer;
-    background-color: rgb(214, 213, 213);
-    border-radius: 10px;
+  
+  .small-font {
+    font-size: 12px;
   }
-
-  #showcard:hover {
-    background-color: rgba(128, 128, 128, 0.479);
-  }
+  
 
   #results {
     margin-top: 20px;
@@ -103,7 +100,7 @@
   }
 
   #card0:hover, #card1:hover, #card2:hover, #card3:hover, #card4:hover, #card5:hover, #card6:hover, #card7:hover, #card8:hover, #card9:hover, #card10:hover, #card11:hover, #card12:hover, #card13:hover {
-    transform: scale(1.07);
+    transform: scale(1.15);
   }
 
   #numCardsInput {
@@ -126,6 +123,17 @@
     top: 20px;
     bottom: 100px;
   }
+  
+  #root {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    font-size: 3rem;
+  }
+
+  
+  
   
   
   
